@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"os"
+)
 
 func main() {
 	f0001println()
@@ -8,6 +12,7 @@ func main() {
 	f0003()
 	f0004()
 	f0005()
+	f0006()
 }
 
 // Print out some text
@@ -66,6 +71,21 @@ func f0005() {
 	var secondBits = 0b00000011
 	var resultBits = firstBits >> secondBits
 	fmt.Printf("Shift bits: %d >> %d = %d", firstBits, secondBits, resultBits)
+}
+
+// Create and delete folder in temp directory
+func f0006() {
+	var tempDirectory = os.TempDir()
+	tempDirectory = fmt.Sprint(tempDirectory, os.PathSeparator, "go-playground")
+	var fileMode = os.ModeDir
+	var err = os.Mkdir(tempDirectory, fileMode)
+	if err != nil {
+		log.Fatalf("Error creating directory %s", tempDirectory)
+	}
+	err = os.Remove(tempDirectory)
+	if err != nil {
+		log.Fatalf("Error deleting directory %s", tempDirectory)
+	}
 }
 
 func onePlusOne() int {
